@@ -7,7 +7,6 @@ import { Box } from "@mui/material";
 import LeftNavigationBar from "../components/layouts/LeftNavigationBar";
 import Header from "../components/layouts/Header";
 import Sidebar from "../components/layouts/Sidebar";
-// import CanvasArea from "../components/layouts/CanvasArea";
 
 const HEADER_HEIGHT = 70;
 

@@ -22,7 +22,7 @@ const CanvasContainer = styled(Box)(() => ({
   position: "absolute",
   top: "50%",
   left: "45%",
-  width: "608px",
+  width: "600px",
   height: "422px",
   transform: "translate(-50%, -50%)",
 }));

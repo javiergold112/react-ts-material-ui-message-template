@@ -1,23 +1,11 @@
-import { styled } from "@mui/material/styles";
-
-import {
-  Stack,
-  Typography,
-  IconButton,
-  Paper,
-  Chip,
-  Box,
-  Button,
-  Link,
-  TextField,
-} from "@mui/material";
-
-import CloseIcon from "@mui/icons-material/Close";
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import FormatBoldIcon from "@mui/icons-material/FormatBold";
-import FormatClearIcon from "@mui/icons-material/FormatClear";
-import FormatItalicIcon from "@mui/icons-material/FormatItalic";
-import CodeIcon from "@mui/icons-material/Code";
+import React from 'react';
+import { styled, Stack, Typography, IconButton, Paper, Chip, TextField, Link, Button, Box } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatClearIcon from '@mui/icons-material/FormatClear';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import CodeIcon from '@mui/icons-material/Code';
 
 const SectionContainer = styled(Paper)(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -25,88 +13,81 @@ const SectionContainer = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
 }));
 
-export default function BodySection() {
-  return (
-    <SectionContainer variant="outlined">
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Box component="img" src="./assets/tt.png" />
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Body message
-          </Typography>
-          <Box component="img" src="./assets/info.png" />
-        </Stack>
-        <Chip
-          label="REQUIRED"
-          sx={{
-            fontSize: "12px",
-            fontWeight: "bold",
-            borderRadius: 1,
-            backgroundColor: "#F5F5F5",
-          }}
-        />
-      </Stack>
+const ActionIcon = styled(Box)({
+  color: "#0000008A",
+});
 
-      <TextField
-        id="outlined-textarea"
-        label=""
-        multiline
-        rows={4}
-        defaultValue="👋 Hi {{1}}, we just kicked off our summer sale! ☀️☀️ Wanna hear more? "
-        fullWidth
-        sx={{
-          my: 2,
-          fontSize: "14px",
-          "& .MuiInputBase-input": { fontSize: "14px" },
-        }}
-      />
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        spacing={1}
-      >
-        <Button size="small">ADD VARIABLE</Button>
-        <Stack direction="row" alignItems="center" spacing={0.5}>
-          <EmojiEmotionsIcon sx={{ color: "#0000008A" }} />
-          <FormatBoldIcon sx={{ color: "#0000008A" }} />
-          <FormatClearIcon sx={{ color: "#0000008A" }} />
-          <FormatItalicIcon sx={{ color: "#0000008A" }} />
-          <CodeIcon sx={{ color: "#0000008A" }} />
-        </Stack>
+const VariableInfoPaper = styled(Paper)(({ theme }) => ({
+  backgroundColor: "#F5F5F5",
+  padding: theme.spacing(2),
+  marginTop: theme.spacing(2),
+  elevation: 0,
+}));
+
+const BodySection = () => (
+  <SectionContainer variant="outlined">
+    <Header />
+    <MessageInput />
+    <EditingTools />
+    <VariableInfo />
+  </SectionContainer>
+);
+
+const Header = () => (
+  <Stack direction="row" alignItems="center" spacing={2}>
+    <Stack direction="row" alignItems="center" spacing={1}>
+      <img src="./assets/tt.png" alt="Body Icon" />
+      <Typography variant="subtitle1" fontWeight="bold">
+        Body message
+      </Typography>
+      <img src="./assets/info.png" alt="Info Icon" />
+    </Stack>
+    <Chip label="REQUIRED" sx={{ fontSize: "12px", fontWeight: "bold", borderRadius: 1, backgroundColor: "#F5F5F5" }} />
+  </Stack>
+);
+
+const MessageInput = () => (
+  <TextField
+    id="outlined-textarea"
+    multiline
+    rows={4}
+    defaultValue="👋 Hi {{1}}, we just kicked off our summer sale! ☀️☀️ Wanna hear more? "
+    fullWidth
+    sx={{ my: 2, "& .MuiInputBase-input": { fontSize: "14px" } }}
+  />
+);
+
+const EditingTools = () => (
+  <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+    <Button size="small">ADD VARIABLE</Button>
+    <Stack direction="row" alignItems="center" spacing={0.5}>
+      <ActionIcon><EmojiEmotionsIcon /></ActionIcon>
+      <ActionIcon><FormatBoldIcon /></ActionIcon>
+      <ActionIcon><FormatClearIcon /></ActionIcon>
+      <ActionIcon><FormatItalicIcon /></ActionIcon>
+      <ActionIcon><CodeIcon /></ActionIcon>
+    </Stack>
+  </Stack>
+);
+
+const VariableInfo = () => (
+  <VariableInfoPaper elevation={0}>
+    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+      <Stack direction="row" alignItems="center" spacing={1}>
+        <img src="./assets/light.png" alt="Variables Icon" />
+        <Typography variant="subtitle1">What are variables?</Typography>
       </Stack>
-      <Paper
-        elevation={0}
-        sx={{ backgroundColor: "#F5F5F5", padding: 2, mt: 2 }}
-      >
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          spacing={2}
-        >
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Box component="img" src="./assets/light.png" />
-            <Typography variant="subtitle1">What are variables?</Typography>
-          </Stack>
-          <IconButton
-            size="small"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Stack>
-        <Typography variant="caption">
-          Variables are dynamic content that help personalize your campaign, for
-          example: customer names or coupon codes.
-        </Typography>
-        <Box>
-          <Link href="#">Learn More</Link>
-        </Box>
-      </Paper>
-    </SectionContainer>
-  );
-}
+      <IconButton size="small" aria-label="close tip">
+        <CloseIcon />
+      </IconButton>
+    </Stack>
+    <Typography variant="caption">
+      Variables are dynamic content that help personalize your campaign, for example: customer names or coupon codes.
+    </Typography>
+    <Box mt={1}>
+      <Link href="#" underline="hover">Learn More</Link>
+    </Box>
+  </VariableInfoPaper>
+);
+
+export default BodySection;

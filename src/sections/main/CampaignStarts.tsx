@@ -1,10 +1,9 @@
 import { styled } from "@mui/material/styles";
-
-import { Stack, Typography, Button } from "@mui/material";
-
+import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const CampaignStarts = styled(Button)(({ theme }) => ({
+// Utilize MUI's system to create a styled button with specific styles
+const CampaignStartsButton = styled(Button)(({ theme }) => ({
   position: "absolute",
   top: "50%",
   left: "0",
@@ -13,18 +12,22 @@ const CampaignStarts = styled(Button)(({ theme }) => ({
   borderRadius: 75,
   textTransform: "capitalize",
   backgroundColor: "#212121",
-  '&:hover': {
-    backgroundColor: '#212161'
-  }
+  "&:hover": {
+    backgroundColor: "#212161",
+  },
+  // Ensure the button content (icon and text) is centered
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 }));
 
-export default function FooterSection() {
+export default function CampaignStarts() {
   return (
-    <CampaignStarts variant="contained">
-      <Stack alignItems="center" spacing={2}>
-        <SendIcon sx={{ width: 28 }} />
-        <Typography>Campaign Starts</Typography>
-      </Stack>
-    </CampaignStarts>
+    <CampaignStartsButton
+      variant="contained"
+      startIcon={<SendIcon sx={{ fontSize: 28, mb: 1 }} />}
+    >
+      Campaign Starts
+    </CampaignStartsButton>
   );
 }

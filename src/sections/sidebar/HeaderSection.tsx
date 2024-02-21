@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { styled } from "@mui/material/styles";
-
+import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   Stack,
   Typography,
@@ -13,11 +12,12 @@ import {
   FormHelperText,
   Button,
   Link,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+} from '@mui/material';
 
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select, { SelectChangeEvent} from '@mui/material/Select';
+
+import CloseIcon from '@mui/icons-material/Close';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
 const SectionContainer = styled(Paper)(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -25,102 +25,86 @@ const SectionContainer = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
 }));
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
   height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
+  overflow: 'hidden',
+  position: 'absolute',
+  whiteSpace: 'nowrap',
   width: 1,
 });
+
+const HeaderInfo = () => (
+  <Stack direction="row" alignItems="center" spacing={1}>
+    <InsertPhotoIcon sx={{ color: '#0000008A' }} />
+    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+      Header
+    </Typography>
+    <Box component="img" src="./assets/info.png" alt="Info" />
+  </Stack>
+);
+interface AttachmentTypeSelectProps {
+  attachType: number;
+  setAttachType: (value: number) => void;
+}
+
+const AttachmentTypeSelect: React.FC<AttachmentTypeSelectProps> = ({ attachType, setAttachType }) => {
+  const handleChange = (event: SelectChangeEvent) => {
+    setAttachType(Number(event.target.value));
+  };
+
+  return (
+    <FormControl fullWidth size="small" margin="normal">
+      <Select
+        value={String(attachType)}
+        onChange={handleChange}
+        displayEmpty
+      >
+        <MenuItem value={0}>Image</MenuItem>
+        <MenuItem value={1}>File</MenuItem>
+      </Select>
+      <FormHelperText sx={{ mx: 0 }}>Image size recommendation: 800 x 418 pixels</FormHelperText>
+    </FormControl>
+  );
+};
+
+const ImageHeaderTips = () => (
+  <Paper elevation={0} sx={{ backgroundColor: '#F5F5F5', padding: 2, mt: 2 }}>
+    <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Typography variant="subtitle1">Image header tips</Typography>
+      <IconButton size="small" aria-label="close tip">
+        <CloseIcon />
+      </IconButton>
+    </Stack>
+    <Typography variant="caption">
+      Images can enrich the message experience and help maintain engagement.
+      Use eye-catching images that summarize the message (e.g., discounts, gifts, etc.).
+    </Typography>
+    <Box mt={1}>
+      <Link href="#" underline="hover">Learn More</Link>
+    </Box>
+  </Paper>
+);
 
 export default function HeaderSection() {
   const [attachType, setAttachType] = useState(0);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAttachType(Number(event.target.value));
-  };
   return (
     <SectionContainer variant="outlined">
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        spacing={2}
-      >
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <InsertPhotoIcon sx={{ color: "#0000008A" }} />
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Header
-          </Typography>
-          <Box component="img" src="./assets/info.png" />
-        </Stack>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+        <HeaderInfo />
         <Switch defaultChecked />
       </Stack>
 
-      <FormControl>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={`${attachType}`}
-          onChange={handleChange}
-          size="small"
-          sx={{ mt: 2, mb: 1 }}
-        >
-          <MenuItem value={0}>Image</MenuItem>
-          <MenuItem value={1}>File</MenuItem>
-        </Select>
-        <FormHelperText sx={{ textAlign: "left", m: 0 }}>
-          Image size recommendation: 800 x 418 pixel.
-        </FormHelperText>
-      </FormControl>
+      <AttachmentTypeSelect attachType={attachType} setAttachType={setAttachType} />
 
-      <Box sx={{ my: 2 }}>
-        <Button
-          component="label"
-          role={undefined}
-          variant="outlined"
-          tabIndex={-1}
-        >
-          Upload image
-          <VisuallyHiddenInput type="file" />
-        </Button>
-      </Box>
-      <Paper elevation={0} sx={{ backgroundColor: "#F5F5F5", padding: 2 }}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          spacing={2}
-        >
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Box component="img" src="./assets/light.png" />
-            <Typography variant="subtitle1">Image header tips</Typography>
-          </Stack>
-          <IconButton
-            size="small"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Stack>
-        <Typography variant="caption">
-          Images can enrich the message experience and help maintain engagement.
-          Use eye-catching images that summarize the message (eg discounts,
-          gifts etc.)
-        </Typography>
-        <Box>
-          <Link href="#" sx={{ textDecoration: "none" }}>
-            Learn More
-          </Link>
-        </Box>
-      </Paper>
+      <Button component="label" variant="outlined">
+        Upload image
+        <VisuallyHiddenInput accept="image/*" type="file" />
+      </Button>
+
+      <ImageHeaderTips />
     </SectionContainer>
   );
 }

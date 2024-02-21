@@ -1,14 +1,31 @@
-import { Stack, Button } from "@mui/material";
+import React from "react";
+import { Stack, Button, ButtonProps } from "@mui/material";
+
+// Define a type for the action buttons that extends the ButtonProps
+// to include the 'label' property.
+interface ActionButton extends Pick<ButtonProps, "variant" | "color"> {
+  label: string;
+}
 
 export default function ActionSection() {
+  // Explicitly type the actionButtons array with the ActionButton type.
+  const actionButtons: ActionButton[] = [
+    { variant: "contained", color: "primary", label: "Save" },
+    { variant: "outlined", color: "error", label: "Delete" },
+  ];
+
   return (
-    <Stack spacing={2} sx={{ padding: "0 24px 0 24px" }}>
-      <Button variant="contained" fullWidth>
-        save
-      </Button>
-      <Button variant="outlined" fullWidth>
-        delete
-      </Button>
+    <Stack spacing={2} sx={{ px: 3 }}>
+      {actionButtons.map((button, index) => (
+        <Button
+          key={index}
+          variant={button.variant}
+          color={button.color}
+          fullWidth
+        >
+          {button.label}
+        </Button>
+      ))}
     </Stack>
   );
 }

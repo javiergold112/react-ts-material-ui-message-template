@@ -1,22 +1,23 @@
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 import SidebarContent from "../../sections/sidebar/SidebarContent";
 import ActionSection from "../../sections/sidebar/ActionSection";
 
 const HEADER_HEIGHT = 70;
 
+const StyledSidebarBox = styled(Box)(({ theme }) => ({
+  maxWidth: 380,
+  marginTop: HEADER_HEIGHT,
+  height: `calc(100vh - ${HEADER_HEIGHT}px)`,
+  borderRight: "1px solid lightgray",
+}));
+
 export default function Sidebar() {
   return (
-    <Box
-      sx={{
-        maxWidth: 380,
-        marginTop: `${HEADER_HEIGHT}px`,
-        height: `calc(100vh - ${HEADER_HEIGHT}px)`,
-        borderRight: "1px solid lightgray",
-      }}
-    >
+    <StyledSidebarBox>
       <SidebarContent />
       <ActionSection />
-    </Box>
+    </StyledSidebarBox>
   );
 }

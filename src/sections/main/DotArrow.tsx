@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 const DotArrowContainer = styled(Box)(({ theme }) => ({
   position: "absolute",
   top: "50%",
-  left: "208px",
+  left: "198px",
   transform: "translate(0, -50%)",
 }));
 

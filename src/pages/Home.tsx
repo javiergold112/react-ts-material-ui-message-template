@@ -25,6 +25,7 @@ const CanvasContainer = styled(Box)(() => ({
   width: "600px",
   height: "422px",
   transform: "translate(-50%, -50%)",
+  zIndex: 1
 }));
 
 const MainPage: React.FC = () => {

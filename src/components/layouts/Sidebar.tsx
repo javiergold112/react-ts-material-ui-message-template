@@ -11,6 +11,7 @@ const StyledSidebarBox = styled(Box)(({ theme }) => ({
   marginTop: HEADER_HEIGHT,
   height: `calc(100vh - ${HEADER_HEIGHT}px)`,
   borderRight: "1px solid lightgray",
+  zIndex: 10
 }));
 
 export default function Sidebar() {

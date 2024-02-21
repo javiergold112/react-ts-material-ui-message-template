@@ -23,7 +23,6 @@ const CanvasComponent: React.FC<CanvasComponentProps> = ({ content }) => {
 
   return ReactDOM.createPortal(
     <canvas ref={canvasRef} width={400} height={200}>
-      {/* Render your general React component inside the canvas tag */}
       {content}
     </canvas>,
     document.body // Render outside the regular React hierarchy

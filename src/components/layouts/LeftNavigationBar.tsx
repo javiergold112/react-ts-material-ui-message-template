@@ -4,10 +4,9 @@ import { styled } from "@mui/material/styles";
 
 const LEFTNAVBAR_WIDTH = 56;
 
-// Adjusted color codes according to your requirement
 const bgColor = "#20232A"; // Background color for the navigation bar
 const logoBorderColor = "rgba(255, 255, 255, 0.12)"; // Border color below the logo
-const selectedItemBgColor = "#333740"; // Background color for the selected item
+const selectedItemBgColor = "#000000"; // Background color for the selected item
 const selectedItemBorderColor = "#007DFF"; // Border color for the selected item
 
 const DrawerBox = styled(Box)({

@@ -11,7 +11,7 @@ export default function ActionSection() {
   // Explicitly type the actionButtons array with the ActionButton type.
   const actionButtons: ActionButton[] = [
     { variant: "contained", color: "primary", label: "Save" },
-    { variant: "outlined", color: "error", label: "Delete" },
+    { variant: "outlined", color: "primary", label: "Delete" },
   ];
 
   return (

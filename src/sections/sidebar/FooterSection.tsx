@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useAtom } from 'jotai';
+
 import { styled } from '@mui/material/styles';
 import { Stack, Typography, Paper, Switch, Box } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
+
+import { state } from "../../store";
 
 const SectionContainer = styled(Paper)(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -21,11 +25,27 @@ const FooterContent = () => (
 );
 
 export default function FooterSection() {
+  const [visibility, setVisibility] = useAtom(state);
+  const [footerVisibility, setFooterVisibility] = useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFooterVisibility(event.target.checked);
+    toggleVisibility("footerSectionVisible");
+  };
+
+  const toggleVisibility = (section: keyof typeof visibility) => {
+    setVisibility((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
   return (
     <SectionContainer variant="outlined">
       <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
         <FooterContent />
-        <Switch defaultChecked />
+        <Switch
+          checked={footerVisibility}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "controlled" }}
+        />
       </Stack>
     </SectionContainer>
   );

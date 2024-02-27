@@ -1,4 +1,7 @@
-import React from 'react';
+// src/sections/sidebar/BodySection.tsx
+import React, { useState } from 'react';
+import { useAtom } from 'jotai';
+
 import { styled, Stack, Typography, IconButton, Paper, Chip, TextField, Link, Button, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
@@ -6,6 +9,10 @@ import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import CodeIcon from '@mui/icons-material/Code';
+
+import { state } from '../../store';
+
+const INITIAL_MESSAGE = "👋 Hi {{1}}, we just kicked off our summer sale! ☀️☀️ Wanna hear more? ";
 
 const SectionContainer = styled(Paper)(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -24,14 +31,25 @@ const VariableInfoPaper = styled(Paper)(({ theme }) => ({
   elevation: 0,
 }));
 
-const BodySection = () => (
-  <SectionContainer variant="outlined">
-    <Header />
-    <MessageInput />
-    <EditingTools />
-    <VariableInfo />
-  </SectionContainer>
-);
+const BodySection = () => {
+  const [message, setMessage] = useState(INITIAL_MESSAGE);
+  const [bodyText, setBodyText] = useAtom(state);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setMessage(newValue);
+    setBodyText({ ...bodyText, bodyText: newValue });
+  };
+
+  return (
+    <SectionContainer variant="outlined">
+      <Header />
+      <MessageInput value={message} onChange={handleInputChange} />
+      <EditingTools />
+      <VariableInfo />
+    </SectionContainer>
+  );
+};
 
 const Header = () => (
   <Stack direction="row" alignItems="center" spacing={2}>
@@ -46,12 +64,13 @@ const Header = () => (
   </Stack>
 );
 
-const MessageInput = () => (
+const MessageInput = ({ value, onChange }: { value: string; onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }) => (
   <TextField
     id="outlined-textarea"
     multiline
     rows={4}
-    defaultValue="👋 Hi {{1}}, we just kicked off our summer sale! ☀️☀️ Wanna hear more? "
+    value={value}
+    onChange={onChange}
     fullWidth
     sx={{ my: 2, "& .MuiInputBase-input": { fontSize: "14px" } }}
   />

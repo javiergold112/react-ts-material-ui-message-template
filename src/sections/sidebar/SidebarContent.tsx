@@ -7,7 +7,7 @@ import BodySection from './BodySection';
 import FooterSection from './FooterSection';
 import ButtonsSection from './ButtonsSection';
 
-export default function Sidebar() {
+export default function SideBarContent() {
   const theme = useTheme();
 
   const cardContentStyles = {
